@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('site_contatos', function (Blueprint $table) {
+        Schema::create('fornecedores', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 50);
-            $table->string('telefone', 11);
-            $table->string('email', 80);
-            $table->integer('motivo_contato');
-            $table->text('mensagem');
+            $table->string('nome');
             $table->timestamps();
         });
     }
@@ -27,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('site_contatos');
+        Schema::dropIfExists('fornecedores');
     }
 };
