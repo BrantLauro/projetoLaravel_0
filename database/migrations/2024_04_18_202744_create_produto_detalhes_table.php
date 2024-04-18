@@ -26,6 +26,7 @@ return new class extends Migration
          * php artisan migrate:reset = faz o rollback de todas as migrations
          * php artisan migrate:refresh = faz o rollback das migrations e depois executa o comando migrate novamente
          * php artisan migrate:fresh = faz o drop das migrations e depois executa o comando migrate novamente
+         * so pra ter oq commitar
          */
     }
 
