@@ -24,3 +24,4 @@
     </div>
     @include('layout.partials.rodape')
 @endsection
+

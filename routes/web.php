@@ -32,19 +32,3 @@ Route::fallback(function(){
     echo 'Página não encontrada!!!';
 });
 
-/*
-(->) esse operador é conhecido informamente como seta, o manual chama ele de T_OBJECT_OPERATOR serve para acessar propriedades ou métodos de um objeto, para membros estáticos(aqueles que pertencem/compartilhados a classe) utiliza-se o :: Paamayim Nekudotayim.
-
-Outras linguagens como java e C# utilizam ponto no lugar(.) no lugar de (->).
-
-
-verbo http
-
-get
-post
-put
-patch
-delete
-options
-
-*/

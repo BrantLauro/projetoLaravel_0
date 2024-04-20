@@ -21,12 +21,6 @@ return new class extends Migration
             $table->foreign('produto_id')->references('id')->on('produtos');
             $table->unique('produto_id');
         });
-        /**
-         * php artisan migrate:status = mostra informações sobre as migrations
-         * php artisan migrate:reset = faz o rollback de todas as migrations
-         * php artisan migrate:refresh = faz o rollback das migrations e depois executa o comando migrate novamente
-         * php artisan migrate:fresh = faz o drop das migrations e depois executa o comando migrate novamente
-         */
     }
 
     /**
