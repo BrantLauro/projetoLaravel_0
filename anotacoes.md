@@ -6,33 +6,33 @@
 
 ## Artisan Console
 
-Artisan é um console de linha de comando usado para auxiliar na criação do projeto, ele pode ser usado para criar e executar Migrations, Models, Views e Controllers, além de ser usado para muitas outras coisas como rodar o servidor da aplicação
+Artisan é um console de linha de comando usado para auxiliar na criação do projeto, ele pode ser usado para criar e executar Migrations, Models, Views e Controllers, além de ser usado para muitas outras coisas como rodar o servidor da aplicação.
 
 ### Comando Uteis
 
-`php artisan serve` -> Sobe a aplicação para o server
+`php artisan serve` -> Sobe a aplicação para o server.
 
-`php artisan make:controller CoisaController` -> Cria um controller vazio
+`php artisan make:controller CoisaController` -> Cria um controller vazio.
 
-`php artisan make:view site.contato` -> Cria uma view vazia
+`php artisan make:view site.contato` -> Cria uma view vazia.
 
-`php artisan make:model Coisa` -> Cria uma classe Model para coisa
+`php artisan make:model Coisa` -> Cria uma classe Model para coisa.
 
-`php artisan make:model Coisa -m` -> Cria uma classe Model para coisa e uma migration para a criação da tabela no banco de dados já com as regras de plural
+`php artisan make:model Coisa -m` -> Cria uma classe Model para coisa e uma migration para a criação da tabela no banco de dados já com as regras de plural.
 
-`php artisan make:migration create_coisa_table` -> Cria uma migration já com up() e down() e um Schema::create com id() e timestamps(), o nome deve ter o nome da tabela e mais ou menos a alteração que se vai fazer
+`php artisan make:migration create_coisa_table` -> Cria uma migration já com up() e down() e um Schema::create com id() e timestamps(), o nome deve ter o nome da tabela e mais ou menos a alteração que se vai fazer.
 
-`php artisan migrate` -> roda as migrations que ainda não foram rodadas
+`php artisan migrate` -> roda as migrations que ainda não foram rodadas.
 
-`php artisan migrate:rollback` -> faz o down da ultima migrate
+`php artisan migrate:rollback` -> faz o down da ultima migrate.
 
-`php artisan migrate:status` -> mostra informações sobre as migrations
+`php artisan migrate:status` -> mostra informações sobre as migrations.
 
-`php artisan migrate:reset` -> faz o rollback de todas as migrations
+`php artisan migrate:reset` -> faz o rollback de todas as migrations.
 
-`php artisan migrate:refresh` -> faz o rollback das migrations e depois executa o comando migrate novamente
+`php artisan migrate:refresh` -> faz o rollback das migrations e depois executa o comando migrate novamente.
 
-`php artisan migrate:fresh` -> faz o drop das migrations e depois executa o comando migrate novamente
+`php artisan migrate:fresh` -> faz o drop das migrations e depois executa o comando migrate novamente.
 
 (há alterações para todos esses comandos)
 
@@ -74,7 +74,7 @@ Route::get('/home', function () {
 }); 
 ```
 
-Nos dois casos, ao acessar o site /home será automaticamente redirecionado para a rota /
+Nos dois casos, ao acessar o site /home será automaticamente redirecionado para a rota /.
 
 Se existir um prefixo comum entre as rotas é possível fazer um grupo, exemplo:
 
@@ -86,7 +86,7 @@ Route::group(["prefix"=> "app"], function () {
 });
 ```
 
-Nesse caso todas essas rotas serão app/alguma-coisa, exemplo: app/clientes
+Nesse caso todas essas rotas serão app/alguma-coisa, exemplo: app/clientes.
 
 É possível passar parâmetros para as rotas, para serem usados na função, no controller ou nas views chamadas, sendo que pelo método get os parâmetros ficam visíveis na url e no método post não (há outras diferenças entre os dois métodos, mas não vem muito ao caso).
 
@@ -96,7 +96,7 @@ Exemplo:
 Route::get('/{id}', [CoisaController::class, 'show'])->name('app.show');
 ```
 
-nesse caso, o parâmetro id, está sendo passado para o Controller na função `show($id)` por meio do método get
+nesse caso, o parâmetro id, está sendo passado para o Controller na função `show($id)` por meio do método get.
 
 É possível também, passar parâmetros opcionais usando uma ? antes do nome do parâmetro como em:
 
@@ -112,7 +112,7 @@ Lembre-se de colocar um valor padrão para o parâmetro para que seja passado um
 Route::post('/{id}', [CoisaController::class, 'update'])->name('app.update');
 ```
 
-Parâmetro passado com o método post, não será passado pela url
+Parâmetro passado com o método post, não será passado pela url.
 
 ### Expressões regulares para os parâmetros
 
@@ -140,11 +140,11 @@ Blade: motor de renderização de views do Laravel, ele permite que você reutil
 
 ### Sintaxe Blade
 
-No blade para usar php usa-se o operador @ seguido da função que deseja-se utilizar, por exemplo, para usar um bloco php puro, usa-se no inicio `@php` e `@endphp` no final, além disso, para usar a tag php só para o echo (`<?= 'texto' ?>`) usa-se `{{ 'texto' }}`
+No blade para usar php usa-se o operador @ seguido da função que deseja-se utilizar, por exemplo, para usar um bloco php puro, usa-se no inicio `@php` e `@endphp` no final, além disso, para usar a tag php só para o echo (`<?= 'texto' ?>`) usa-se `{{ 'texto' }}`.
 
 #### Diretivas do Blade:
 
-**Obs:** sim, é possível usar tags php entre as diretivas
+**Obs:** sim, é possível usar tags php entre as diretivas.
 
 **@if/@else** -> Equivalente ao if, else do php, exemplo:
 
@@ -277,18 +277,80 @@ a view de layout acrescida das sections* --}}
 
 ```
 @component('layout.components.form', ['style' => 'borda-branca texto-branco'])
-    <p> Respoderemos o mais rápido possível! </p>
+    <p> Responderemos o mais rápido possível! </p>
 @endcomponent
 
 ```
 **Obs:**
-- Tudo colocado na pasta public pode ser acessado nas views como `asset('Nome do asset')`
-- Para colocar um valor default em uma variável caso ela não tenha sido iniciada usa-se ??
-- Para enviar formulários via post tem que se usar a diretiva @csrf dentro do corpo do form
+- Tudo colocado na pasta public pode ser acessado nas views como `asset('Nome do asset')`.
+- Para colocar um valor default em uma variável caso ela não tenha sido iniciada usa-se ??.
+- Para enviar formulários via post tem que se usar a diretiva @csrf dentro do corpo do form.
 
 ## Models
 
+Models são representações, objetos, da tabela do banco de dados dentro do código no sistema, neles devem conter todos os dados que a tabela correspondente pode receber, já que o que vai ser inserido na tabela será um objeto do tipo do model, além de possíveis regras de negócio da empresa que está desenvolvendo a aplicação.
+
 ## Migrations
+
+Forma simples de criar tabelas no banco de dados por meio do Laravel e manter elas sempre atualizadas em todos os ambientes de desenvolvimento, sem precisar ficar exportando e mexendo com código MySQL.
+
+Para mexer com o Banco de Dados, a primeira coisa que se deve fazer é mexer nas configurações e colocar o banco de dados e as informações corretas no arquivo .env, exemplo:
+
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+**Estrutura de uma migration:** Método `up()`: código executado quando o comando `artisan migrate` é rodado. Método `down()`: código executado quando o comando `artisan migrate:rollback` é rodado.
+
+**Criando Tabelas:** é usado o método estático create da classe Schema, exemplo:
+
+```
+Schema::create('coisas', function (Blueprint $table) {
+    $table->id();
+    $table->string('name', 50);
+    $table->text('descricao')->nullable();
+    $table->integer('peso')->nullable();
+    $table->timestamps();
+});
+```
+
+Observe que foram utilizados o modificador `nullable()` em alguns campos da tabela, isso significa que aquele campo em específico pode ser deixado em branco, também é possível passar um valor padrão com o modificador `default()`.
+
+**Alterando Tabelas:** é usado o método estático `table()` da classe Schema, exemplo:
+
+```
+// Para adicionar campos
+Schema::table('coisas', function (Blueprint $table) {
+    $table->double('preco')->after('nome'); // adiciona depois do nome ao invés de no final
+    $table->integer('estoque')->after('preco')->nullable();
+});
+
+// Para excluir campos:
+
+Schema::table('coisas', function (Blueprint $table) {
+    $table->dropColumn(['preco','estoque']);
+});
+```
+
+**Adicionando Chaves Estrangeiras:** um campo do mesmo tipo e mesmo tamanho é colocado na tabela com o objetivo de referenciar a chave primaria (no caso, id) de outra tabela, posteriormente é usado o método `foreign()` para fazer a referência, exemplo:
+
+```
+    $table->foreign('coisa_id')->references('id')->on('coisas');
+    $table->unique('coisas_id'); // caso seja um relacionamento 1 para 1, caso não seja, basta omitir
+```
+
+**Excluindo a tabela:** é usado o método dropIfExists(), exemplo:
+
+```
+public function down(): void {
+    Schema::dropIfExists('coisas');
+}
+```
 
 ## Eloquent ORM
 
