@@ -4,6 +4,8 @@
 
 `composer create-project laravel/laravel nome-do-projeto`
 
+* Lembrar de liberar as extensões necessárias no php.ini para que seja possível baixar as extensões da fonte! Não fazer isso pode fazer o projeto pesar muito.
+
 ## Artisan Console
 
 Artisan é um console de linha de comando usado para auxiliar na criação do projeto, ele pode ser usado para criar e executar Migrations, Models, Views e Controllers, além de ser usado para muitas outras coisas como rodar o servidor da aplicação.
@@ -39,6 +41,26 @@ Artisan é um console de linha de comando usado para auxiliar na criação do pr
 ### Regras que o Laravel usa para criação do nome das Migrations e posteriormente seu uso no banco de dados
 
 Se o nome do modelo é, por exemplo "ClienteFrequente" (geralmente se cria modelos com nomes no singular) o nome da tabela criada no banco de dados com a migration será cliente_frequentes, o Camel case é quebrando em _ e é adicionado um s no final, mas nem sempre esse forma é a mais correta pois o plural pode ficar errado, para consertar isso se troca manualmente o nome da migration e da tabela e especifica a tabela a ser usada pelo Model. Outro exemplo: o model "Fornecedor" seria criado como "fornecedors" na migration, mas pode se mudar para "fornecedores" e especificar no model.
+
+## Estrutura de pastas
+
+**Pasta App:** Lógica da aplicação, onde ficam os controllers, models, requests, etc.
+
+**Pasta Bootstrap e Config:** Configurações e métodos para rodar o framework.
+
+**Pasta Database:** Onde ficam as migrations, seeders e tudo relacionado ao banco de dados.
+
+**Pasta Public:** Contém o index.php que vai rodar quando sua aplicação iniciar, além dos assets, como imagens, css e scripts js.
+
+**Pasta Resources:** Contém as views e o css e js cru.
+
+**Pasta Routes:** Contém as rotas da aplicação.
+
+**Pasta Storage:** Contém os logs e classes do framework.
+
+**Pasta Tests:** Contém os testes automatizados.
+
+**Pasta Vendor:** Contém todas as dependências do framework.
 
 ## Routes
 
@@ -116,6 +138,14 @@ Parâmetro passado com o método post, não será passado pela url.
 
 ### Expressões regulares para os parâmetros
 
+```
+Route::get('/user/{id}/{name}', function (string $id, string $name) {
+    // ...
+})->where(['id' => '[0-9]+', 'name' => '[a-z]+']);
+```
+
+Nessa rota, ele só vai achar o caminho se o id for numérico, aceitando mais de um número e o nome for alfabético e minusculo. 
+
 
 ### Rota de contingência
 
@@ -129,6 +159,13 @@ Outras linguagens como java e C# utilizam ponto no lugar(.) no lugar de (->).
 Controllers são a camada de aplicação para onde os requests feitos pelo usuário são encaminhados para serem resolvidos, é ele que deve chamar as views, criar, ler, atualizar e deletar os dados do banco de dados, etc.
 
 ### Chamando uma view passando parâmetros
+
+Há duas formas, passando um array associativo ou o método `compact()`, exemplo:
+
+```
+$coisas = Coisa::all();
+return view('coisas.list', compact('coisas'));
+```
 
 
 
@@ -279,7 +316,6 @@ a view de layout acrescida das sections* --}}
 @component('layout.components.form', ['style' => 'borda-branca texto-branco'])
     <p> Responderemos o mais rápido possível! </p>
 @endcomponent
-
 ```
 **Obs:**
 - Tudo colocado na pasta public pode ser acessado nas views como `asset('Nome do asset')`.
@@ -312,7 +348,7 @@ DB_PASSWORD=
 ```
 Schema::create('coisas', function (Blueprint $table) {
     $table->id();
-    $table->string('name', 50);
+    $table->string('nome', 50);
     $table->text('descricao')->nullable();
     $table->integer('peso')->nullable();
     $table->timestamps();
@@ -340,8 +376,8 @@ Schema::table('coisas', function (Blueprint $table) {
 **Adicionando Chaves Estrangeiras:** um campo do mesmo tipo e mesmo tamanho é colocado na tabela com o objetivo de referenciar a chave primaria (no caso, id) de outra tabela, posteriormente é usado o método `foreign()` para fazer a referência, exemplo:
 
 ```
-    $table->foreign('coisa_id')->references('id')->on('coisas');
-    $table->unique('coisas_id'); // caso seja um relacionamento 1 para 1, caso não seja, basta omitir
+$table->foreign('coisa_id')->references('id')->on('coisas');
+$table->unique('coisas_id'); // caso seja um relacionamento 1 para 1, caso não seja, basta omitir
 ```
 
 **Excluindo a tabela:** é usado o método dropIfExists(), exemplo:
@@ -354,5 +390,74 @@ public function down(): void {
 
 ## Eloquent ORM
 
+Mapeamento Objeto Relacional nativo do Laravel, ligação entre o paradigma de orientação a objetos e o banco de dados relacional, com ele é possível, inserir, ler, atualizar e deletar dados do banco de dados com muito mais facilidade, já que as funções já estão prontas.
+
+### Inserindo dados no Banco de Dados
+
+**Método save():** Passando um objeto de um model que tem uma migration correspondente (nome da migration precisa está de acordo com as regras ou identificado dentro do Model para dar certo) ele consegue salvar os dados contidos nesse objeto na tabela correspondente.
+
+**Mudando o nome da tabela relacionada ao model:** caso haja necessidade, basta adicionar essa linha no Model correspondente:
+
+```
+protected $table = 'nome_correto_da_tabela';
+```
+
+**Método create():** Método estático da classe Model que recebe um array associativo como parâmetro, com os dados que estão definidos como fillable no Model, para inserir um registro do Model na tabela correspondente no banco de dados. Exemplo:
+
+```
+// No Model:
+
+protected $fillable = ['nome', 'descricao', 'peso', 'preco', 'estoque'];
+
+// Create:
+
+Coisa::create([
+    'nome' => 'coisa',
+    'descricao' => 'coisa bem louca',
+    'peso' => 'levemente pesado',
+    'preco' => 13.90,
+    'estoque' => 10
+]);
+```
+
+### Selecionando dados do Banco de Dados
+
+**Método all():** Método estático da classe Model que retorna uma coleção de objetos do tipo do model com todos os registros da tabela correspondente no banco de dados.
+
+**Obs:** Coleções podem ser convertidas para array usando o método `toArray()`
+
+**Método find():** Método estático da classe Model que recebe uma ou mais chaves primárias dos registros a serem buscados e retorna um objeto (caso seja buscado só uma chave primária) ou uma coleção de objetos do tipo do model com os registros encontrados com a chave primária passada como parâmetro na tabela correspondente no banco de dados.
+
+**Método where():** Método para montagem de queries para realizar pesquisas mais complexas no banco de dados, podendo usar operadores lógicos. O método recebe 3 parâmetros, o nome da coluna a ser comparada, o operador e o valor que se deseja comparar. Ao ser usado, retorna um builder, para que seja possível continuar a elaboração da query, ao usar o método `get()` se obtém a coleção com o resultado.
+
+**Métodos whereIn() e whereNotIn:** Método para montagem de queries, o método recebe dois parâmetros, uma coluna do banco de dados e um array com a quantidade de parâmetros que forem necessários, os métodos retornam os dados contidos na determinada coluna que contém, ou não, os valores passados como parâmetros.
+
+**Métodos whereBetween() e whereNotBetween:** Método para montagem de queries, o método recebe dois parâmetros, uma coluna do banco de dados e um array com dois valores, os métodos retornam os dados contidos na determinada coluna que estão, ou não, entre os valores passados como parâmetros.
+
+**Métodos whereNull() e whereNotNull:** Método para montagem de queries, o método recebe como parâmetro uma coluna do banco de dados, os métodos retorna os dados contidos na determinada coluna que estão, ou não, com o valor null.
+
+**Métodos whereDate(), whereTime(), whereYear(), whereMonth() e whereDay():** Método para montagem de queries, o método recebe dois parâmetros, uma coluna do banco de dados do tipo, date, time ou timestamp e uma data, hora, ano, mes ou dia, os métodos retornam os dados contidos na determinada coluna que tem a determinada data, hora, ano, mes ou dia passado como parâmetro.
+
+**Métodos whereColumn():** Método para montagem de queries, funciona da mesma forma que o where, mas com a diferença que compara o valor de duas colunas, o método recebe como parâmetro duas colunas do banco de dados e um operador, o método retorna os dados da tabela onde as duas colunas passadas como parâmetro tiverem o valor comparado correto.
+
+**Obs:** 
+- Usar um where seguido do outro na hora que fazer uma consulta realizada uma consulta com dois wheres ligados por um and, se desejar utilizar uma consulta com um or, há a query `orWhere()`, todas os outros métodos where seguem a mesma lógica (em tudo, sendo só atalhos) tendo, um orWhere correspondente.
+- É possível fazer grupos de comparações e junta-los utilizando uma função de callback dentro de um where que recebe uma variável query como parâmetro e faz os grupos dentro de cada função.
+- É possível ordenar o resultado de uma query usando o método `orderBy("nome-da-coluna", "asc ou desc")`.
+
+### Collections
+
+Array de objetos retornada como resultado de algumas queries, pode ser manipulada de várias formas.
+
+**Métodos first() e last():** retornam, respectivamente, o primeiro e o ultimo objeto da coleção.
+
+**Métodos toArray() e toJson():** retornam, respectivamente, a coleção em forma de array e em forma de json.
+
+**Método pluck():** retorna uma coleção, com os valores de uma chave passada com parâmetro, também pode receber uma segunda chave como parâmetro, cujos valores serão as chaves da coleção gerada.
+
 ### Tinker
+
+Console interativo do Laravel onde se tem acesso as classes do projeto, pode ser usado para testar se está tudo certo com as classes e com o banco de dados antes de se fazer um view para realizar as operações do CRUD.
+
+
 
