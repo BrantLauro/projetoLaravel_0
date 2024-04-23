@@ -445,6 +445,28 @@ Coisa::create([
 - É possível fazer grupos de comparações e junta-los utilizando uma função de callback dentro de um where que recebe uma variável query como parâmetro e faz os grupos dentro de cada função.
 - É possível ordenar o resultado de uma query usando o método `orderBy("nome-da-coluna", "asc ou desc")`.
 
+### Atualizando dados do Banco de Dados
+
+**Método save():** Ao recuperar um registro do Banco de Dados e alterá-lo é possível salva-lo novamente, atualizado, utilizando o método `save()`.
+
+**Método update():** Funciona de forma parecida com o create, recebendo um array associativo com os dados contidos na variável fillable do Model, é usado a partir do resultado de uma query, ela tendo retornado um ou mais registros, atualizando todos os registros com os dados passados no array.
+
+### Deletando dados do Banco de Dados
+
+**Método delete() e destroy():** O método `delete()` funciona de forma parecida com o método update, sendo chamado a partir de um registro ou coleção e deletando os determinados dados do banco de dados. Já o método destroy recebe ids como parâmetro e apaga seus registros do banco.
+
+### SoftDeletes
+
+Para fins históricos, as vezes é necessário manter os dados no banco de dados mesmo depois de apagados, para isso, pode-se usar o soft deletes, se adiciona um campo chamado deleted_at, que é inicialmente null e quando deletado, o registro, ao invés de apagado é só atualizado seu campo deleted_at para o dia e a hora do momento, sendo que o Framework só considera o dado caso seu deleted_at seja null, assim é possível recuperar o dado posteriormente, caso necessário.
+
+**Para Implementar:** Deve-se declarar no model que se está usando os SoftDeletes e criar um campo no banco de dados.
+
+**Obs:** 
+- `forceDelete()` apaga definitivamente do banco.
+- `withTrashed()` retorna todos os registros inclusive os apagados com SoftDeletes.
+- `onlyTrashed()` retorna só os registros apagados.
+- `restore()` restaura um item deletado.
+
 ### Collections
 
 Array de objetos retornada como resultado de algumas queries, pode ser manipulada de várias formas.
