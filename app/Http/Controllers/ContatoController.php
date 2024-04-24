@@ -3,17 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\SiteContato;
 use Illuminate\Http\Request;
 
 class ContatoController extends Controller
 {
     public function contato() {
-        $par = 0;
-        return view("site.contato", compact("par"));
+        $motivosContato = [
+            1 => "Dúvidas",
+            2 => "Elogio",
+            3 => "Reclamação"
+        ];
+        return view("site.contato", ["motivosContato"=> $motivosContato]);
     }
 
-    public function contatoNome(string $nome, ?int $categoria_id = null) {
-        $par = 1;
-        return view("site.contato", compact("nome","categoria_id", "par"));
+    public function salvar(Request $request) {
+        $request->validate([
+            'nome' => 'required|min:3|max:50',
+            'telefone' => 'required|max:11',
+            'email'=> 'required|max:80',
+            'motivo_contato' => 'required',
+            'mensagem'=> 'required',
+        ]);
+        SiteContato::create($request->all());
     }
+
 }
