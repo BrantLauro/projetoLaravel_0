@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::table('fornecedores', function (Blueprint $table) {
             $table->string('uf', 2)->after('nome');
             $table->string('email', 80)->after('uf')->nullable();
+            $table->softDeletes();
         });
     }
 
@@ -24,6 +25,7 @@ return new class extends Migration
     {
         Schema::table('fornecedores', function (Blueprint $table) {
             $table->dropColumn(['uf','email']);
+            $table->dropSoftDeletes();
         });
     }
 };
