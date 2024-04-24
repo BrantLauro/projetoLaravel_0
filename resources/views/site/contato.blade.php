@@ -14,7 +14,7 @@
                 @php
                     $style = 'borda-preta'
                 @endphp
-                @component('layout.components.form', compact('style'))
+                @component('layout.components.form', compact('style', 'motivosContato'))
                     <p>
                         Respoderemos o mais rápido possível!
                     </p>

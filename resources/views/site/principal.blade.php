@@ -33,7 +33,7 @@
                 <p>
                     Caso tenha qualquer dúvida por favor entre em contato com nossa equipe pelo formulário abaixo.
                 <p>
-                @component('layout.components.form', ['style' => 'borda-branca texto-branco'])
+                @component('layout.components.form', ['style' => 'borda-branca texto-branco', 'motivosContato' => $motivosContato])
                     
                 @endcomponent
             </div>
