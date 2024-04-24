@@ -481,5 +481,9 @@ Array de objetos retornada como resultado de algumas queries, pode ser manipulad
 
 Console interativo do Laravel onde se tem acesso as classes do projeto, pode ser usado para testar se está tudo certo com as classes e com o banco de dados antes de se fazer um view para realizar as operações do CRUD.
 
+## Formulários
+
+
+
 
 
