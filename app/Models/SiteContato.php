@@ -11,6 +11,5 @@ class SiteContato extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ['nome', 'telefone','email','motivo_contato','mensagem'];
-    
+    protected $fillable = ['nome', 'telefone','email','motivo_contatos_id','mensagem'];
 }

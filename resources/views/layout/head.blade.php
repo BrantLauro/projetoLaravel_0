@@ -12,4 +12,9 @@
         @yield('main');
 
     </body>
+    <script>
+        @if (session('success'))
+            alert("{{ session('success') }}");
+        @endif
+    </script>
 </html>
