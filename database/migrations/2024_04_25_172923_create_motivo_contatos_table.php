@@ -11,15 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('site_contatos', function (Blueprint $table) {
+        Schema::create('motivo_contatos', function (Blueprint $table) {
             $table->id();
-            $table->string('nome', 50);
-            $table->string('telefone', 11);
-            $table->string('email', 80);
-            $table->unsignedBigInteger('motivo_contatos_id');
-            $table->text('mensagem');
+            $table->string('motivo_contato');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -28,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('site_contatos');
+        Schema::dropIfExists('motivo_contatos');
     }
 };
