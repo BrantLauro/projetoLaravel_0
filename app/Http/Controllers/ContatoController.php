@@ -35,7 +35,7 @@ class ContatoController extends Controller
 
         $request->validate($regras, $mensagens);
         SiteContato::create($request->all());
-        return redirect()->back()->with('success','Mensagem enviada com sucesso!');
+        return redirect()->back()->with('message','Mensagem enviada com sucesso!');
     }
 
 }
