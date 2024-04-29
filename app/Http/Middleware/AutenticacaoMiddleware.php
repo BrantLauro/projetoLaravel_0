@@ -20,7 +20,7 @@ class AutenticacaoMiddleware
         if (isset($_SESSION['id']) && $_SESSION['id'] != '') {
             return $next($request);
         } else {
-            return redirect()->back()->with('message','Email ou Senha inválidos');
+            return redirect()->back()->with('message','É preciso logar para acessar essa funcionalidade');
         }
     }
 }
