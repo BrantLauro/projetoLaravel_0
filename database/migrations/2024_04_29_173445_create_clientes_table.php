@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table("site_contatos", function (Blueprint $table) {
-            $table->foreign("motivo_contatos_id")->references("id")->on("motivo_contatos");
+        Schema::create('clientes', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
         });
     }
 
@@ -21,8 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table("site_contatos", function (Blueprint $table) {
-            $table->dropForeign(["motivo_contatos_id"]);
-        });
+        Schema::dropIfExists('clientes');
     }
 };
