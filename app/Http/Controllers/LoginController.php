@@ -32,9 +32,15 @@ class LoginController extends Controller
         if($login != null) {
            session_start();
            $_SESSION['id'] = $login->id;
+           return redirect()->route('app.home');
         } else {
             return redirect()->back()->with('message','Email ou Senha inválidos');
         }
+    }
+
+    public function logout() { 
+        session_destroy();
+        return redirect()->route('site.home')->with('message','Sessão encerrada');
     }
 
     /**
