@@ -5,7 +5,9 @@ use App\Http\Controllers\SobreNosController;
 use App\Http\Controllers\ContatoController;
 use App\Http\Controllers\FornecedorController;
 use App\Http\Controllers\LoginController;
-use App\Http\Middleware\AutenticacaoMiddleware;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\ProdutoController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PrincipalController::class,'index'])->name('site.home');
@@ -27,9 +29,19 @@ Route::get('/login', [LoginController::class, 'index'])->name('site.login');
 Route::post('/login', [LoginController::class, 'login'])->name('site.login');
 
 Route::middleware('autenticacao')->prefix('/app')->group(function () {
-    Route::get("/clientes", function() {echo'Clientes';})->name('app.clientes');
-    Route::get("/fornecedores", [FornecedorController::class, 'index'])->name('app.fornecedores');
-    Route::get("/produtos", function() {echo'Produtos';})->name('app.produtos');
+    Route::get('/home', [HomeController::class, 'index'])->name('app.home');
+    Route::get('/clientes', [ClienteController::class, 'index'])->name('app.clientes');
+    Route::prefix('/fornecedores')->group(function() {
+        Route::get('/listar', [FornecedorController::class, 'index'])->name('app.fornecedores');
+        Route::get('/pesquisar', [FornecedorController::class, 'pesquisa'])->name('app.fornecedor.pesquisar');
+        Route::post('/pesquisar', [FornecedorController::class, 'listar'])->name('app.fornecedor.pesquisar');
+        Route::get('/novo', [FornecedorController::class, 'novo'])->name('app.fornecedor.novo');
+        Route::post('/novo', [FornecedorController::class, 'salvar'])->name('app.fornecedor.novo');
+        Route::get('/excluir/{id}', [FornecedorController::class, 'delete'])->name('app.fornecedor.deletar');
+        Route::get('/editar/{id}', [FornecedorController::class, 'update'])->name('app.fornecedor.editar');
+    });
+    Route::get('/produtos', [ProdutoController::class, 'index'])->name('app.produtos');
+    Route::get('/sair', [LoginController::class, 'logout'])->name('app.sair');
 });
 
 Route::fallback(function(){
