@@ -11,6 +11,7 @@
         <div class="informacao-pagina">
             <div class="menu" style="font-weight: bolder">
                 <ul>
+                    <li><a href="{{ route('app.fornecedores') }}">Listar</a></li>
                     <li><a href="{{ route('app.fornecedor.novo') }}">Novo</a></li>
                     <li><a href="{{ route('app.fornecedor.pesquisar') }}">Consulta</a></li>
                 </ul>
