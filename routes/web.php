@@ -34,11 +34,11 @@ Route::middleware('autenticacao')->prefix('/app')->group(function () {
     Route::prefix('/fornecedores')->group(function() {
         Route::get('/listar', [FornecedorController::class, 'index'])->name('app.fornecedores');
         Route::get('/pesquisar', [FornecedorController::class, 'pesquisa'])->name('app.fornecedor.pesquisar');
-        Route::post('/pesquisar', [FornecedorController::class, 'listar'])->name('app.fornecedor.pesquisar');
         Route::get('/novo', [FornecedorController::class, 'novo'])->name('app.fornecedor.novo');
         Route::post('/novo', [FornecedorController::class, 'salvar'])->name('app.fornecedor.novo');
         Route::get('/excluir/{id}', [FornecedorController::class, 'delete'])->name('app.fornecedor.deletar');
         Route::get('/editar/{id}', [FornecedorController::class, 'update'])->name('app.fornecedor.editar');
+        Route::post('/editar/{id}', [FornecedorController::class, 'update'])->name('app.fornecedor.editar');
     });
     Route::get('/produtos', [ProdutoController::class, 'index'])->name('app.produtos');
     Route::get('/sair', [LoginController::class, 'logout'])->name('app.sair');
