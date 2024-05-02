@@ -199,3 +199,12 @@ button:hover {
 .redes-sociais img {
     margin: 0px 15px 0px 15px;
 }
+
+.flex {
+    margin-top: 20px;
+}
+
+.flex a {
+    text-decoration: none;
+    color: #268fd0;
+}

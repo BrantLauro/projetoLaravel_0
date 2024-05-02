@@ -35,4 +35,6 @@
         </tbody>
     </table>
 </div>
+{{ $fornecedores->links() }}
+
 @endsection

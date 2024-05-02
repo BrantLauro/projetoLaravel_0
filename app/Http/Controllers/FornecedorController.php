@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class FornecedorController extends Controller
 {
     public function index(Request $request) {
-        $fornecedores = Fornecedor::all();
+        $fornecedores = Fornecedor::simplePaginate(10);
         return view('app.fornecedor.listar', compact('fornecedores'));
     }
 
@@ -17,7 +17,7 @@ class FornecedorController extends Controller
         if(empty($request->query())) {
             return view('app.fornecedor.pesquisa');
         }else{
-            $fornecedores = Fornecedor::search($request)->get();
+            $fornecedores = Fornecedor::search($request)->simplePaginate(10)->withQueryString();
             return view('app.fornecedor.listar', compact('fornecedores'));
         }
     }
@@ -53,7 +53,6 @@ class FornecedorController extends Controller
     public function delete($id) {
         $fornecedor = Fornecedor::findOrFail($id);
         $fornecedor->delete();
-
         return redirect()->route('app.fornecedores')->with('message', 'Deletado com sucesso!');
     }
 
