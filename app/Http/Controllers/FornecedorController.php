@@ -53,7 +53,7 @@ class FornecedorController extends Controller
     public function delete($id) {
         $fornecedor = Fornecedor::findOrFail($id);
         $fornecedor->delete();
-        return redirect()->route('app.fornecedores')->with('message', 'Deletado com sucesso!');
+        return redirect()->route('app.fornecedor.index')->with('message', 'Deletado com sucesso!');
     }
 
     public function update(Request $request, $id) {
@@ -81,7 +81,7 @@ class FornecedorController extends Controller
     
             $request->validate($regras, $mensagens);
             $fornecedor->update($request->all());
-            return redirect()->route('app.fornecedores')->with('message', 'Fornecedor atualizado com sucesso!');
+            return redirect()->route('app.fornecedor.index')->with('message', 'Fornecedor atualizado com sucesso!');
         }
 
     }

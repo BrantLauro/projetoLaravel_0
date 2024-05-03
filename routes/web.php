@@ -29,21 +29,36 @@ Route::get('/login', [LoginController::class, 'index'])->name('site.login');
 Route::post('/login', [LoginController::class, 'login'])->name('site.login.salvar');
 
 Route::middleware('autenticacao')->prefix('/app')->group(function () {
-    Route::get('/home', [HomeController::class, 'index'])->name('app.home');
-    Route::get('/clientes', [ClienteController::class, 'index'])->name('app.clientes');
+    Route::get('/home', [HomeController::class, 'index'])->name('app.home.index');
+
+    Route::get('/clientes', [ClienteController::class, 'index'])->name('app.cliente.index');
+
     Route::prefix('/fornecedores')->group(function() {
         Route::get('/', function() {
-            return redirect()->route('app.fornecedores');
+            return redirect()->route('app.fornecedor.index');
         });
-        Route::get('/listar', [FornecedorController::class, 'index'])->name('app.fornecedores');
+        Route::get('/listar', [FornecedorController::class, 'index'])->name('app.fornecedor.index');
         Route::get('/pesquisar', [FornecedorController::class, 'pesquisa'])->name('app.fornecedor.pesquisar');
+
         Route::get('/novo', [FornecedorController::class, 'novo'])->name('app.fornecedor.novo');
         Route::post('/novo', [FornecedorController::class, 'salvar'])->name('app.fornecedor.novo.salvar');
+
         Route::get('/excluir/{id}', [FornecedorController::class, 'delete'])->name('app.fornecedor.deletar');
+
         Route::get('/editar/{id}', [FornecedorController::class, 'update'])->name('app.fornecedor.editar');
         Route::post('/editar/{id}', [FornecedorController::class, 'update'])->name('app.fornecedor.editar.salvar');
     });
-    Route::get('/produtos', [ProdutoController::class, 'index'])->name('app.produtos');
+
+    Route::resource('produto', ProdutoController::class)->names([
+        'index' => 'app.produto.index',
+        'create' => 'app.produto.create',
+        'store' => 'app.produto.store',
+        'show' => 'app.produto.show',
+        'edit' => 'app.produto.edit',
+        'update' => 'app.produto.update',
+        'destroy' => 'app.produto.destroy',
+    ]);
+    
     Route::get('/sair', [LoginController::class, 'logout'])->name('app.sair');
 });
 

@@ -200,11 +200,21 @@ button:hover {
     margin: 0px 15px 0px 15px;
 }
 
-.flex {
-    margin-top: 20px;
+.pagination {
+    list-style-type: none;
+    margin: 20px 0px;
 }
 
-.flex a {
+.pagination li {
+    display: inline;
+    margin: 0px 5px; 
+}
+
+.pagination a {
     text-decoration: none;
     color: #268fd0;
+}
+
+.pagination a:hover {
+    text-decoration: underline;
 }
