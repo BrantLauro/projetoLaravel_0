@@ -10,7 +10,7 @@
         </div>
 
         <div class="informacao-pagina">
-            <form action="{{ route('site.login') }}" method="POST" style="margin: 0 40%">
+            <form action="{{ route('site.login.salvar') }}" method="POST" style="margin: 0 40%">
                 @csrf
                 <input type="text" name="email" placeholder="Usuário" value="{{ old('email') }}">
                 @error('email')

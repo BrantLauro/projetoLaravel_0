@@ -3,7 +3,7 @@
 
 @section('conteudo-fornecedor')
     @component('layout.components.form-fornecedor', [
-        'route' => route('app.fornecedor.editar', ['id' => $fornecedor->id]),
+        'route' => route('app.fornecedor.editar.salvar', ['id' => $fornecedor->id]),
         'method' => 'post',
         'nome' => $fornecedor->nome,
         'site' => $fornecedor->site,

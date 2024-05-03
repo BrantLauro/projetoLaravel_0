@@ -1,4 +1,4 @@
-<form action="{{ route('site.contato')}}" method="POST">
+<form action="{{ route('site.contato.salvar')}}" method="POST">
     @csrf
     <input type="text" value="{{ old('nome') }}" placeholder="Nome" name="nome" class="{{ $style }}">
     <br>

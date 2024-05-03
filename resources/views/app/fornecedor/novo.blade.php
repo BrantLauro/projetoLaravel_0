@@ -3,7 +3,7 @@
 
 @section('conteudo-fornecedor')
     @component('layout.components.form-fornecedor', [
-        'route' => route('app.fornecedor.novo'),
+        'route' => route('app.fornecedor.novo.salvar'),
         'method' => 'post',
         'nome' => old('nome'),
         'site' => old('site'),
