@@ -218,3 +218,19 @@ button:hover {
 .pagination a:hover {
     text-decoration: underline;
 }
+
+.inside-form {
+    display: inline;
+}
+
+.inside-form button {
+    width: 30%;
+}
+
+.inside-form .delete {
+    background-color: #b82421;
+}
+
+.inside-form .delete:hover {
+    background-color: rgb(119, 34, 33);
+}

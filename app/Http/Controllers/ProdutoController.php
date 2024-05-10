@@ -49,7 +49,7 @@ class ProdutoController extends Controller {
      * Display the specified resource.
      */
     public function show(Produto $produto) {
-        //
+        return view('app.produto.show', compact('produto'));
     }
 
     /**
@@ -86,7 +86,8 @@ class ProdutoController extends Controller {
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Produto $produto) {
-        //
+    public function destroy(Produto $produto) { 
+        $produto->delete();
+        return redirect()->route('app.produto.index')->with('message', 'Deletado com sucesso!');
     }
 }

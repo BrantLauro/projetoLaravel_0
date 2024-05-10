@@ -2,8 +2,8 @@
 @section('titulo', 'Listar')
 
 @section('conteudo-produto')
-<h1>Lista de Produtos</h1>
-<br>
+<h2>Lista de Produtos</h2>
+<br>   
 <div style="margin: 0 auto; width:90%">
     <table style="width: 100%">
         <thead>
@@ -23,8 +23,17 @@
                     <td>{{ $produto->peso }}</td>
                     <td>{{ $produto->unidade }}</td>
                     <td>
-                        <a href="{{route('app.produto.destroy', $produto->id)}}"><button type="submit"  style="width:30%">Excluir</button></a>
-                        <a href="{{route('app.produto.edit', $produto)}}"><button type="submit"  style="width:30%">Editar</button></a>
+                        <form action="{{ route('app.produto.show', $produto) }}" method="GET" class="inside-form">
+                            <button type="submit">Mostrar</button>
+                        </form>
+                        <form action="{{ route('app.produto.edit', $produto) }}" method="GET" class="inside-form">
+                            <button type="submit">Editar</button>
+                        </form>
+                        <form action="{{ route('app.produto.destroy', $produto) }}"  method="POST" class="inside-form">
+                            @csrf
+                            @method("DELETE")
+                            <button type="submit" class="delete">Excluir</button>
+                        </form>
                     </td>
                 </tr>
             @empty

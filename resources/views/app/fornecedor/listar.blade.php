@@ -2,7 +2,7 @@
 @section('titulo', 'Listar')
 
 @section('conteudo-fornecedor')
-<h1>Lista de Fornecedores</h1>
+<h2>Lista de Fornecedores</h2>
 <br>
 <div style="margin: 0 auto; width:90%">
     <table style="width: 100%">
